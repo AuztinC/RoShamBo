@@ -55,7 +55,11 @@ code {
   
 }
 
-#enemy {
-  font-size: 60px;
+#enemy-hand {
+  font-size: 120px;
   transform: rotate(180deg);
+}
+
+#local-hand {
+  font-size: 120px;
 }
