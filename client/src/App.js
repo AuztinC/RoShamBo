@@ -4,7 +4,8 @@ import socketClient  from "socket.io-client";
 const socket = socketClient.connect("http://localhost:3001/");
 
 function App() {
-  
+  const [selected, setSelected] = useState('paper')
+  const [submited, setSubmited] = useState(false)
   const [P1, setP1] = useState({id: "", hand: "🖐"})
   const [P2, setP2] = useState({id: "", hand: "🖐"})
   const [localHand, setLocalHand] = useState("🖐")
@@ -55,7 +56,8 @@ function App() {
       setLocalHand(p1.hand)
       setEnemyHand(p2.hand)
     }
-    
+    setSubmited(false)
+    setLocalHand("🖐")
   })
   
   // When user clicks a button to choose hand
@@ -86,6 +88,7 @@ function App() {
   
   function handleSubmit(){
     socket.emit("submit_hand", localHand)
+    setSubmited(true)
   }
   
     
@@ -105,10 +108,11 @@ function App() {
       <div id="local-hand">{localHand}</div>
       
       <div className="hand-wrap">
-        <button onClick={() => {handleClick("✊")}} className="gameBtn rock">✊</button>
-        <button onClick={() => {handleClick("✋")}} className="gameBtn paper">✋</button>
-        <button onClick={() => {handleClick("✌")}} className="gameBtn scissors">✌</button>
+        <button onClick={() => {handleClick("✊"); setSelected('rock')}} className={`gameBtn ${selected === 'rock' ? 'selected' : ''}`}>✊</button>
+        <button onClick={() => {handleClick("✋"); setSelected('paper') }} className={`gameBtn ${selected === 'paper' ? 'selected' : ''}`}>✋</button>
+        <button onClick={() => {handleClick("✌"); setSelected('scissors')}} className={`gameBtn ${selected === 'scissors' ? 'selected' : ''}`}>✌</button>
       </div>
+      { submited ? <span> Waiting for opponent to lock in! </span> : null}
       <button onClick={() => {handleSubmit()}}>Submit</button>
     </div>
   );
