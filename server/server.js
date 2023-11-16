@@ -20,32 +20,32 @@ const io = new Server(http, {
 })
 
 io.on('connection', (socket) => {
-	
+
 	users.push(socket.id)
 	console.log(socket.id + " has connected")
-	
+
 	socket.on("send_hand", (hand) => {
 		// if (socket.id === p1.id){
 		// 	p1.hand = hand;
-		// } 
+		// }
 		// if (socket.id === p2.id){
 		// 	p2.hand = hand;
 		// }
-		
+
 		// console.log(socket.id + " plays " + data)
 		console.log(p2.hand)
 	})
-	
+
 	socket.on("submit_hand", (hand) => {
-		
-		
+
+
 		if (socket.id === p1.id){
 			p1.hand = hand;
-		} 
+		}
 		if (socket.id === p2.id){
 			p2.hand = hand;
 		}
-		
+
 		setTimeout(function() {
 			if (p1.hand !== "" && p2.hand !== "") {
 				socket.broadcast.emit("recieve_hand", [p1, p2])
@@ -54,9 +54,9 @@ io.on('connection', (socket) => {
 				p2.hand = ""
 			}
 		}, 1000)
-		
+
 	})
-	
+
 	socket.on("setP1", P1 => {
 		if (p1.id === "") {
 			p1.id = P1;
@@ -77,19 +77,19 @@ io.on('connection', (socket) => {
 			socket.emit("p2_fail", p2)
 		}
 	})
-	
+
 	socket.on("disconnect", () => {
 		users.splice(users.indexOf(socket.id)-1, 1)
-		
+
 		if (socket.id === p1.id) {
 			p1.id = ""
 		}
 		if (socket.id === p2.id) {
 			p2.id = ""
 		}
-		
-		
-		
+
+
+
 		console.log(socket.id + " has disconnected")
 	})
 })

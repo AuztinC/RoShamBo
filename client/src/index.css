@@ -1,4 +1,5 @@
 body {
+  background-color: whitesmoke;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -13,6 +14,7 @@ body {
 }
 
 .App {
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,6 +32,16 @@ code {
   /* width: 60px;
   height: 45px; */
   font-size: 60px;
+  transition: hover .3s;
+}
+.gameBtn:hover {
+  background-color: grey;
+}
+.gameBtn:active {
+  background-color: darkgray;
+}
+.selected{
+  background-color: grey;
 }
 
 .playerBtn {
@@ -40,6 +52,8 @@ code {
 }
 
 .p-wrap {
+  border: 1px solid black;
+  background-color: white;
   display: flex;
   flex-direction: row;
   width: 512px;
